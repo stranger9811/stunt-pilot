@@ -31,6 +31,25 @@ void renderGame(void) {
   drawWorld();
 } 
 
+void renderGameOver(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClearColor(0.0,0.0,0.0,1.0);
+  orthoSet();
+ glEnable(GL_TEXTURE_2D);
+ 
+  glBindTexture(GL_TEXTURE_2D, gameOver);
+  glBegin(GL_QUADS);
+      glTexCoord2f(0, 0);  glVertex2f(0, 0);
+      glTexCoord2f(0, 1);  glVertex2f(0, 450);
+      glTexCoord2f(1, 1);  glVertex2f(800, 450);
+      glTexCoord2f(1, 0);  glVertex2f(800, 0);
+  glEnd();
+  glDisable(GL_TEXTURE_2D);
+   orthoReset();
+
+}
+
 
 void initialize (void){
 
@@ -42,7 +61,7 @@ void initialize (void){
 
 /// New light
 
-     GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+   GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
    GLfloat mat_shininess[] = { 50.0 };
    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
    glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -74,7 +93,6 @@ void initialize (void){
     // glEnable(GL_DEPTH_TEST);
     // glEnable(GL_LIGHTING);
     glEnable(GL_NORMALIZE);
-    glEnable(GL_TEXTURE_2D);
     mainMenu = loadTex("../data/images/mainMenu.bmp");
     pauseMenu = loadTex("../data/images/pauseMenu.bmp");
     powerUp = loadTex("../data/images/powerUp.bmp");
@@ -86,9 +104,21 @@ void initialize (void){
     settings_game = loadTex("../data/images/Settings.bmp");
     level_1 = loadTex("../data/images/Level1.bmp");
     level_2 = loadTex("../data/images/Level2.bmp");
-    powerFire = loadTex("../data/images/score.bmp");
     powerAir = loadTex("../data/images/lives.bmp");
-    road = loadTex("../data/images/Settings.bmp");
+    road = loadTex("../data/images/runway.bmp");
+    sky = loadTex("../data/images/Sky.bmp");
+    gameOver = loadTex("../data/images/gameover.bmp");
+    blank  = loadTex("../data/numbers/Blank.bmp");
+    number_texture[0] = loadTex("../data/numbers/0.bmp");
+    number_texture[1] = loadTex("../data/numbers/1.bmp");
+    number_texture[2] = loadTex("../data/numbers/2.bmp");
+    number_texture[3] = loadTex("../data/numbers/3.bmp");
+    number_texture[4] = loadTex("../data/numbers/4.bmp");
+    number_texture[5] = loadTex("../data/numbers/5.bmp");
+    number_texture[6] = loadTex("../data/numbers/6.bmp");
+    number_texture[7] = loadTex("../data/numbers/7.bmp");
+    number_texture[8] = loadTex("../data/numbers/8.bmp");
+    number_texture[9] = loadTex("../data/numbers/9.bmp");
 }
 
 void changeSize(int w, int h) {

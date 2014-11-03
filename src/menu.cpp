@@ -6,6 +6,8 @@ void menu(int n){
 	else if (n==2) mName = pauseMenu;
     else if (n==3) mName = soundOff;
     else if (n==4) mName = soundOn;
+     glEnable(GL_TEXTURE_2D);
+
     if(n==1 || n==2){
         glBindTexture(GL_TEXTURE_2D, mName);
         glBegin(GL_QUADS);
@@ -25,9 +27,12 @@ void menu(int n){
             glTexCoord2f(1, 0);  glVertex2f(800, 0 );
         glEnd();
     }
+
+     glDisable(GL_TEXTURE_2D);
 }
 
 void arrowMenu(){
+     glEnable(GL_TEXTURE_2D);
     if(menuNum == 1)
     {
         glBindTexture(GL_TEXTURE_2D, play_game);
@@ -37,7 +42,6 @@ void arrowMenu(){
             glTexCoord2f(1, 1);  glVertex2f(800, 450);
             glTexCoord2f(1, 0);  glVertex2f(800, 0 );
         glEnd();
-        orthoReset();
     }
     else if(menuNum == 2)
     {
@@ -48,7 +52,6 @@ void arrowMenu(){
             glTexCoord2f(1, 1);  glVertex2f(800, 450);
             glTexCoord2f(1, 0);  glVertex2f(800, 0 );
         glEnd();
-        orthoReset();
     }
     else if(menuNum == 3)
     {
@@ -59,8 +62,8 @@ void arrowMenu(){
             glTexCoord2f(1, 1);  glVertex2f(800, 450);
             glTexCoord2f(1, 0);  glVertex2f(800, 0 );
         glEnd();
-        orthoReset();
     }
+     glDisable(GL_TEXTURE_2D);
 }
 
 void mainMenuCall(void){
@@ -141,13 +144,12 @@ void renderSettingsMenu(void){
                 menu(3);
             else
                 menu(4);
-    
     orthoReset();
 }
 
 void renderWorldMenu(void){
     orthoSet();
-
+    glEnable(GL_TEXTURE_2D);
     if(menuNum == 1 || menuNum == 3)
     {
         glBindTexture(GL_TEXTURE_2D, level_1);
@@ -168,7 +170,7 @@ void renderWorldMenu(void){
             glTexCoord2f(1, 0);  glVertex2f(800, 0 );
         glEnd();    
     }
-
+    glDisable(GL_TEXTURE_2D);
     orthoReset();
 }
 

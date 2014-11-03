@@ -2,3 +2,4 @@
 
 void initializeWorld(void);
 void drawWorld(void);
+void destroyParachute(void);

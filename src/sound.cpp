@@ -1,6 +1,7 @@
 #include "global.h"
 
 Mix_Music *gMusic = NULL;
+Mix_Music *gunMusic = NULL;
 
 bool init(){
   //Initialization flag
@@ -49,3 +50,37 @@ void initializeSound(){
     }
   }
 }
+
+
+bool loadGunMedia(){
+  //Loading success flag
+  bool success = true;
+  gunMusic = Mix_LoadMUS( "../data/sound/gunsound1.wav" );
+  if( gunMusic == NULL ){
+    printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+    success = false;
+  }
+  return success;
+}
+
+void closegunSound(){
+  Mix_FreeMusic( gunMusic );
+  gunMusic = NULL;
+  Mix_Quit();
+  SDL_Quit();
+}
+
+void initializegunSound(){
+  if( !init() ){
+    printf( "Failed to initialize!\n" );
+  }
+  else{
+    if( !loadGunMedia() ){
+      printf( "Failed to load media!\n" );
+    }
+    else{ 
+      Mix_PlayMusic( gunMusic, -1 );
+    }
+  }
+}
+

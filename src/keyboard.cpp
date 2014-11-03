@@ -16,11 +16,34 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
     else 
       inGame = 1;
   }
+  if(key==27 && gameover == 1)
+  {
+     inGame = 0; menuNum = 1;
+     gameover = 0;
+     angle = 0.0f;                // angle of rotation for the camera direction
+      lx = 0.0f; lz = 0.0f;           // actual vector representing the camera's direction
+        rx = 0.0f; rz= -1.0f;
+      x = 0.0f; z = 0.0f; y = 0.0f;           // xyz position of the car
+        X = 0.0f; Z = 0.0f;                 // XZ position of the camera
+        rotatePlane = 180.0f;
+      deltaRotate = 0.0f;           // the key states. These variables will be zero when no key is being presses
+      deltaMove = 0;
+      deltaY = 0;
+      score = 0;
+      gunOn = 0;
+      cars_position.clear();
+      parachute_position.clear();
+  }
   if (key == 13 && inGame < 4){
     mainMenuCall();
   }
   if (key == ' ') {
     deltaY = 15.0f;
+  }
+  if(key == 'g'){
+    //close();
+    gunOn = 1;
+    initializegunSound();
   }
   if(key=='k'){
     int win_w = 800;
@@ -42,7 +65,8 @@ void releaseKeyboardKey(unsigned char key, int x, int y)
 {
   if(inGame){
     switch (key) {
-      case ' ' : deltaY = -15.0f; break;
+      case ' ' : deltaY = -50.0f; break;
+      case 'g' : {gunOn = 0;initializeSound();}
     }
   }
 }

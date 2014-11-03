@@ -8,7 +8,7 @@ int loadTex(std::string fileName)
     glBindTexture(GL_TEXTURE_2D, object);
     glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,image->w,image->h,0, GL_RGB, GL_UNSIGNED_BYTE, image -> pixels);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,image->w,image->h,0, GL_BGR, GL_UNSIGNED_BYTE, image -> pixels);
     SDL_FreeSurface(image);
     return object;
 }

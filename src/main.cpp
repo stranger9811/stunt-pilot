@@ -11,33 +11,45 @@ int worldNum;
 bool pauseGame;
 int inGame = 0;
 int one, two, four;
-int level_1, level_2,road,menuNum, mainMenu, pauseMenu, arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap, world2Snap, powerUp, healthBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
+int level_1, level_2,road, sky, menuNum,gameOver,mainMenu, pauseMenu, arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap, world2Snap, powerUp,blank,healthBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
 
-objloader plane, tree, tractor,rock,building;
+int gameover = 0;
+int number_texture[10];
+int gunOn = 0;
+int score;
+
+objloader plane, tree, tractor,rock,building,parachute;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
 
-int PLANE, TREE, TRACTOR,ROCK,BUILDING,SOLDIER;
+vector < COORDINATE > cars_position;
+vector < struct parachute > parachute_position;
+
+int PLANE, TREE, TRACTOR,ROCK,BUILDING,SOLDIER, PARACHUTE;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
 int SHED,WALL,BASE,FLOOR;
 int WORLD2;
 int flag = 0;
 
 void renderScene(void){
-  if(inGame < 4){
+	if(gameover == 1) 
+	{
+		renderGameOver();
+	}
+  	else if(inGame < 4){
   	glDisable(GL_LIGHTING);
     	renderMenu();
     glEnable(GL_LIGHTING);
-  }
-  else{
-  	if(flag==0){
-	 	initializeWorld();
-	 	flag = 1;
-	 }
-    renderGame();
-  }
-  glutSwapBuffers();
+  	}
+  	else{
+  		if(flag==0){
+	 		initializeWorld();
+	 		flag = 1;
+	 	}
+    	renderGame();
+  	}
+  	glutSwapBuffers();
 }
 
 void update(int value) {
@@ -45,6 +57,9 @@ void update(int value) {
 	if(y<0)
 		y = 0.0;
 	
+	if(gunOn == 1) {
+		destroyParachute();
+	}
 	glutPostRedisplay(); //Tell GLUT that the display has changed
 	
 	//Tell GLUT to call update again in 25 milliseconds
@@ -62,13 +77,14 @@ int main(int argc, char **argv) {
 	deltaRotate = 0.0f;						// the key states. These variables will be zero when no key is being presses
 	deltaMove = 0;
 	deltaY = 0;
+	score = 0;
 
   
   inGame = 0; menuNum = 1;
 
 	// init GLUT and create window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
 	glutInitWindowSize(1920,1080);
 	glutCreateWindow("Stunt Pilot");
