@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
     glutReshapeFunc(changeSize);
 
 	initialize();
-	initializeSound();
+	//XXXX initializeSound();
 
 	glutTimerFunc(125, update, 0); 
 	glutIgnoreKeyRepeat(1);
