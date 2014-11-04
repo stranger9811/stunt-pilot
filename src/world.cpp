@@ -271,9 +271,9 @@ void drawWorld(){
     // glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
       glBegin(GL_QUADS);
           glTexCoord2f(0,0);  glVertex3f(-400.0f,1300.0f,-10000.0f);
-          glTexCoord2f(10,0);  glVertex3f(4000.0f,1300.0f,-10000.0f);
-          glTexCoord2f(10,10);  glVertex3f(4000.0f,1300.0f,1000.0f);
-          glTexCoord2f(0,10);  glVertex3f(-4000.0f,1300.0f,1000.0f);
+          glTexCoord2f(5,0);  glVertex3f(4000.0f,1300.0f,-10000.0f);
+          glTexCoord2f(5,5);  glVertex3f(4000.0f,1300.0f,1000.0f);
+          glTexCoord2f(0,5);  glVertex3f(-4000.0f,1300.0f,1000.0f);
       glEnd();
 
    glDisable(GL_TEXTURE_2D);

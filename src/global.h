@@ -9,13 +9,16 @@
 #include  <vector>
 #include <utility>
 
+#ifdef __APPLE__
+#include <OpenGL/OpenGL.h>
+#include <GLUT/glut.h>
+#else
 # include <GL/gl.h>
 # include <GL/glu.h>
 # include <GL/glut.h>
-# include <SDL/SDL.h>
+#endif
+
 # include "SDL/SDL.h"
-# include "SDL/SDL_mixer.h"
-# include "SDL/SDL_image.h"
 
 # include "main.h"
 # include "game.h"

@@ -1,1 +1,1 @@
-g++ main.cpp  game.cpp  objLoader.cpp  world.cpp  keyboard.cpp  sound.cpp menu.cpp ortho.cpp hud.cpp -o run -lm  -lGL -lGLU -lglut -lSDL -lSDL_mixer -lSDL_image -lfreeimage
+g++ main.cpp  game.cpp  objLoader.cpp  world.cpp  keyboard.cpp  sound.cpp menu.cpp ortho.cpp hud.cpp -o run -I/usr/local/Cellar/sdl/1.2.15/include  -I/usr/local/Cellar/freeimage/3.16.0/include -lm  -framework GLUT -framework OpenGL `sdl-config --libs` `sdl-config --cflags` 
