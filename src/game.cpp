@@ -50,6 +50,23 @@ void renderGameOver(void)
 
 }
 
+void renderGameFinish(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClearColor(0.0,0.0,0.0,1.0);
+  orthoSet();
+ glEnable(GL_TEXTURE_2D);
+ 
+  glBindTexture(GL_TEXTURE_2D, gameOver);
+  glBegin(GL_QUADS);
+      glTexCoord2f(0, 0);  glVertex2f(0, 0);
+      glTexCoord2f(0, 1);  glVertex2f(0, 450);
+      glTexCoord2f(1, 1);  glVertex2f(800, 450);
+      glTexCoord2f(1, 0);  glVertex2f(800, 0);
+  glEnd();
+  glDisable(GL_TEXTURE_2D);
+   orthoReset();
+}
 
 void initialize (void){
 
@@ -96,7 +113,9 @@ void initialize (void){
     mainMenu = loadTex("../data/images/mainMenu.bmp");
     pauseMenu = loadTex("../data/images/pauseMenu.bmp");
     powerUp = loadTex("../data/images/powerUp.bmp");
-    healthBar = loadTex("../data/images/healthBar.bmp");
+    greenBar = loadTex("../data/images/greenBar.bmp");
+    redBar = loadTex("../data/images/redBar.bmp");
+    blankBar = loadTex("../data/images/blankBar.bmp");
     soundOff = loadTex("../data/images/Sound_Off.bmp");
     soundOn = loadTex("../data/images/Sound_On.bmp");
     exit_game = loadTex("../data/images/Exit.bmp");
@@ -108,7 +127,9 @@ void initialize (void){
     road = loadTex("../data/images/runway.bmp");
     sky = loadTex("../data/images/Sky.bmp");
     gameOver = loadTex("../data/images/gameover.bmp");
-    blank  = loadTex("../data/numbers/Blank.bmp");
+    sand = loadTex("../data/images/sandy.bmp");
+    footpath = loadTex("../data/images/footpath.bmp");
+    finishline = loadTex("../data/images/finishline.bmp");
     number_texture[0] = loadTex("../data/numbers/0.bmp");
     number_texture[1] = loadTex("../data/numbers/1.bmp");
     number_texture[2] = loadTex("../data/numbers/2.bmp");

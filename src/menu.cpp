@@ -109,10 +109,10 @@ void mainMenuCall(void){
     {
         if(menuNum == 1)
         {
-            //XXXX if( Mix_PausedMusic() == 1 )
-            //     Mix_ResumeMusic();
-            // else
-            //     Mix_PauseMusic();
+            if( Mix_PausedMusic() == 1 )
+                Mix_ResumeMusic();
+            else
+                Mix_PauseMusic();
         }
         else
         {
@@ -140,8 +140,7 @@ void renderPauseMenu(void){
 
 void renderSettingsMenu(void){
     orthoSet();
-   //XXXX if( Mix_PausedMusic() == 1 )
-            if(1)
+    if( Mix_PausedMusic() == 1 )
                 menu(3);
             else
                 menu(4);

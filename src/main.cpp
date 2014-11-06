@@ -11,14 +11,19 @@ int worldNum;
 bool pauseGame;
 int inGame = 0;
 int one, two, four;
-int level_1, level_2,road, sky, menuNum,gameOver,mainMenu, pauseMenu, arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap, world2Snap, powerUp,blank,healthBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
+int level_1, level_2,road,sand,sky, menuNum,gameOver,mainMenu, pauseMenu;
+int arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap; 
+int world2Snap, powerUp,blank,greenBar,redBar,blankBar, soundOn;
+int soundOff, title, downArrow, powerFire, powerAir, footpath,finishline;
 
 int gameover = 0;
+int gamefinish = 0;
 int number_texture[10];
 int gunOn = 0;
 int score;
+float fuel = 100;
 
-objloader plane, tree, tractor,rock,building,parachute;
+objloader plane,tree,tractor,car,rock,building,parachute,railing;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
@@ -26,10 +31,11 @@ objloader world2;
 vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
 
-int PLANE, TREE, TRACTOR,ROCK,BUILDING,SOLDIER, PARACHUTE;
+int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
 int SHED,WALL,BASE,FLOOR;
 int WORLD2;
+float deltaTiltPlane = 0, overallTilt = 0;
 int flag = 0;
 
 void renderScene(void){
@@ -37,10 +43,12 @@ void renderScene(void){
 	{
 		renderGameOver();
 	}
+	else if(gamefinish == 1)
+	{
+		renderGameFinish();
+	}
   	else if(inGame < 4){
-  	glDisable(GL_LIGHTING);
     	renderMenu();
-    glEnable(GL_LIGHTING);
   	}
   	else{
   		if(flag==0){
@@ -56,7 +64,7 @@ void update(int value) {
     y += -3.0;
 	if(y<0)
 		y = 0.0;
-	
+	fuel -= 0.5;
 	if(gunOn == 1) {
 		destroyParachute();
 	}
@@ -95,7 +103,7 @@ int main(int argc, char **argv) {
     glutReshapeFunc(changeSize);
 
 	initialize();
-	//XXXX initializeSound();
+	initializeSound();
 
 	glutTimerFunc(125, update, 0); 
 	glutIgnoreKeyRepeat(1);

@@ -6,24 +6,28 @@ char filename[100];
 
 void initializeWorld(){
 
+	strcpy(filename,"../data/objects/railing/railing.obj");
+    RAILING = railing.load(filename);
+
+	if(worldNum == 1){
+		strcpy(filename , "../data/objects/plane/fluzeug.obj");
+    	PLANE = plane.load(filename);	
+	}
+
 	cars_position.clear();	
     strcpy(filename , "../data/world1/Tree.obj");
     TREE = tree.load(filename);
-    strcpy(filename , "rock_02.obj");
+    strcpy(filename , "../data/objects/rock/rock_02.obj");
     ROCK = rock.load(filename);
-    strcpy(filename , "building.obj");
+    strcpy(filename , "../data/objects/building/building.obj");
     BUILDING = building.load(filename);
-    strcpy(filename , "beautiful_girl.obj");
+    strcpy(filename , "../data/objects/soldier/soldier.obj");
     SOLDIER = building.load(filename);
-    strcpy(filename , "../data/characters/tractor.obj");
-    TRACTOR = tractor.load(filename);
-    strcpy(filename,"../data/characters/tractor.obj");
+    strcpy(filename , "../data/objects/car/car.obj");
+    CAR = car.load(filename);
+    strcpy(filename,"../data/objects/parachute/parachute.obj");
     PARACHUTE = parachute.load(filename);
-
-	if(worldNum == 1){
-		strcpy(filename , "fluzeug.obj");
-    	PLANE = plane.load(filename);	
-	}
+    
 	
 }
 
@@ -56,7 +60,6 @@ void moveCars() {
 
 		if(cars_position[i].second > z || cars_position[i].second < z - 5000) {
 			cars_position.erase(cars_position.begin()+i);
-			printf("remove car at (%d,%d)",cars_position[i].first,cars_position[i].second);
 			continue;
 		}
 		if(cars_position[i].first == 0 || cars_position[i].first == 1) 
@@ -80,7 +83,6 @@ void addNewCars() {
 		}
 		if(flag == 1) {
 			cars_position.push_back(make_pair(x_coord,z_coord));
-			printf("New coordinate added (%d,%d)\n",x_coord,z_coord);
 		}
 	}
 }
@@ -98,16 +100,10 @@ void moveParachute() {
 			continue;
 		}
 
-		if(parachute_position[i].direction == 1){
-			parachute_position[i].y_coordinate += 30.0f;
-			if(parachute_position[i].y_coordinate > 1000)
-				parachute_position[i].direction = 0;
-		}
-		else {
-			parachute_position[i].y_coordinate -= 30.0f;
-			if(parachute_position[i].y_coordinate < 400)
-				parachute_position[i].direction = 1;
-		}
+		parachute_position[i].y_coordinate -= 30.0f;
+		if(parachute_position[i].y_coordinate <= 100)
+			parachute_position.erase(parachute_position.begin() + i);
+		
 
 
 	}
@@ -151,15 +147,14 @@ void destroyParachute() {
 }
 
 void addNewParachute() {
-	while(parachute_position.size() < 10)  {
-		int x_coord = rand()%1200 - 600;
-		int y_coord =  400;
-		int  z_coord = z - rand()%5000;
+	while(parachute_position.size() < 5)  {
+		int x_coord =  -500  + rand()%700 ;
+		int y_coord =  rand()%1000 + 500;
+		int  z_coord = (z - 1000) - rand()%1500;
 		int flag = 1;
-		if(pow( pow(x - x_coord,2) + pow(z_coord - z,2) + pow(y_coord - y,2) ,0.5) < 1500)
-			continue;
+		
 		for(int i=0; i<parachute_position.size(); i++) {
-			if( abs(parachute_position[i].z_coordinate - z_coord) < 100)
+			if( abs(parachute_position[i].z_coordinate - z_coord) < 200)
 				flag = 0;
 		}
 
@@ -169,9 +164,8 @@ void addNewParachute() {
 			temp.y_coordinate = y_coord;
 			temp.z_coordinate = z_coord;
 			temp.life = PARACHUTE_LIFE;
-			temp.direction = 1;
+			
 			parachute_position.push_back(temp);
-			printf("New parachute coordinate added ((%d,%d),%d)\n",x_coord,y_coord,z_coord);
 		}
 	}
 }
@@ -185,13 +179,53 @@ void drawWorld(){
 	addNewParachute();																																																																																																						
 
 	if(worldNum == 1){
+		// level 1 implementation
+		// glPushMatrix();								// CHARACTERS
+		// 	glTranslatef(x,y,z);
+		// 	glRotatef(90, 0.0, 1.0, 0.0);
+		// 	glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+		// 	glScalef(40,47,40);
+		// 	glCallList(PLANE);
+		// glPopMatrix();
+
 		glPushMatrix();								// CHARACTERS
 			glTranslatef(x,y,z);
 			glRotatef(90, 0.0, 1.0, 0.0);
+			
+			overallTilt += deltaTiltPlane;
+			if(overallTilt < 0)
+				overallTilt += 1.0;
+			else if(overallTilt > 0)
+				overallTilt -= 1.0;
+
+			glRotatef(overallTilt,1.0,0.0,0.0);
+
+			cout << "my coordinates " << x << ", " <<  y << ", " << z  << endl;
 			glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
 			glScalef(40,47,40);
 			glCallList(PLANE);
 		glPopMatrix();
+
+		glPushMatrix();								// CHARACTERS
+				glTranslatef(100.0f,0.0f,-7000);
+				glRotatef(0.0, 0.0, 1.0, 0.0);
+				glScalef(1,1,1);
+				glCallList(RAILING);
+		glPopMatrix();
+	glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, finishline);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // float color[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+    // glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
+      glBegin(GL_QUADS);
+          glTexCoord2f(0,0);  glVertex3f(-800.0f,400.0f,-6800.0f);
+          glTexCoord2f(1,0);  glVertex3f(800.0f,400.0f,-6800.0f);
+          glTexCoord2f(1,1);  glVertex3f(800.0f,0.0f,-6800.0f);
+          glTexCoord2f(0,1);  glVertex3f(-800.0f,0.0f,-6800.0f);
+      glEnd();
+
+   glDisable(GL_TEXTURE_2D);
 
 		glPushMatrix();								// CHARACTERS
 			glTranslatef(-1500.0f,0.0f,-2000.0f);
@@ -207,20 +241,34 @@ void drawWorld(){
 			glScalef(20,20,20);
 			glCallList(SOLDIER);
 		glPopMatrix();
+		for(int i=5000; i>=-5000; i-=800) {
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(390.0f,0.0f,float(i));
+				glRotatef(90.0, 0.0, 1.0, 0.0);
+				glScalef(1,1,1);
+				glCallList(RAILING);
+			glPopMatrix();
+		}
 
-
-		glPushMatrix();								// CHARACTERS
-			glTranslatef(-200.0f,0.0f,-3000.0f);
-			glRotatef(210.0, 0.0, 1.0, 0.0);
-			glScalef(5,5,5);
-			glCallList(ROCK);
-		glPopMatrix();
+		for(int i = 0; i>= -5000; i -= 800) {
+			glPushMatrix();								// CHARACTERS
+			glTranslatef(-700.0f,0.0f,(float)i);
+			glScalef(3,3,3);
+			glCallList(TREE);
+			glPopMatrix();
+			glPushMatrix();								// CHARACTERS
+			glTranslatef(700.0f,0.0f,(float)i);
+			glScalef(3,3,3);
+			glCallList(TREE);
+			glPopMatrix();
+		}
+		
 		 
 		glPushMatrix();								// CHARACTERS
-			glTranslatef(-1500.0f,0.0f,-3000.0f);
+			glTranslatef(-1600.0f,0.0f,-3000.0f);
 			glRotatef(270.0, 1.0, 0.0, 0.0);
 			glRotatef(-90.0, 0.0, 0.0, 1.0);
-			glScalef(5,5,5);
+			glScalef(1,1,1);
 			glCallList(BUILDING);
 		glPopMatrix();
 		
@@ -230,10 +278,10 @@ void drawWorld(){
  		for(int i=0; i<cars_position.size(); i++) {
 										// CHARACTERS
  				glPushMatrix();	
-				glTranslatef(get_x_coordinate(cars_position[i].first),50.0f,float(cars_position[i].second));
+				glTranslatef(get_x_coordinate(cars_position[i].first),0.0f,float(cars_position[i].second));
 				glRotatef(get_angle(cars_position[i].first), 0.0, 1.0, 0.0);
-				glScalef(30,30,30);
-				glCallList(TRACTOR);
+				glScalef(200,200,200);
+				glCallList(CAR);
 				glPopMatrix();
 		}
 		for(int i=0; i<parachute_position.size(); i++) {
@@ -242,44 +290,53 @@ void drawWorld(){
 				glTranslatef(float(parachute_position[i].x_coordinate),
 					float(parachute_position[i].y_coordinate),float(parachute_position[i].z_coordinate));
 				glRotatef(270.0, 0.0, 0.0, 0.0);
-				glScalef(30,30,30);
+				glScalef(150,150,150);
 				glCallList(PARACHUTE);
 				glPopMatrix();
+
 		}
-		glColor3f(1.0, 1.0, 1.0);
-		glDisable(GL_LIGHTING);
-		glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, road);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // float color[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-    // glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
-      glBegin(GL_QUADS);
-          glTexCoord2f(0,0);  glVertex3f(-400.0f,0.0f,-10000.0f);
-          glTexCoord2f(1,0);  glVertex3f(400.0f,0.0f,-10000.0f);
-          glTexCoord2f(1,1);  glVertex3f(400.0f,0.0f,1000.0f);
-          glTexCoord2f(0,1);  glVertex3f(-400.0f,0.0f,1000.0f);
-      glEnd();
+		
+		// //glEnable(GL_LIGHTING);
+		// 		/* radius */
+		// double r=500.0;
+		// double height=1000.0;
+		// /* number of side faces */
+		// int faces=360;
+		// /* Choose neutral color (white)*/
+		// //glColor3d(1,1,1);
+		// /* Enable 2D Texture*/
+		// glEnable(GL_TEXTURE_2D);
+		// /* set current working texture */
+		// glBindTexture(GL_TEXTURE_2D, sky);
 
-   glDisable(GL_TEXTURE_2D);
+		//  Disabling these is not necessary in this example,
+		// * BUT if you have previously enabled GL_TEXTURE_GEN_
+		// * for other textures,then you need these lines
+		
+		// glDisable(GL_TEXTURE_GEN_S);
+		// glDisable(GL_TEXTURE_GEN_T);
 
-   		glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, sky);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // float color[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-    // glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
-      glBegin(GL_QUADS);
-          glTexCoord2f(0,0);  glVertex3f(-400.0f,1300.0f,-10000.0f);
-          glTexCoord2f(5,0);  glVertex3f(4000.0f,1300.0f,-10000.0f);
-          glTexCoord2f(5,5);  glVertex3f(4000.0f,1300.0f,1000.0f);
-          glTexCoord2f(0,5);  glVertex3f(-4000.0f,1300.0f,1000.0f);
-      glEnd();
+		// glBegin(GL_QUAD_STRIP);
+		// double x, y, z;
+		// y=height;
+		// for (int i =0; i <= faces; i++) {
+		// 	 double u = i/ (double) faces;
+		// 	 x = r*cos(2*M_PI*u);
+		// 	 z = r*sin(2*M_PI*u);
+		// 	 /* Bottom vertex*/
+		// 	 glTexCoord2f(u, 1.0); glVertex3d( x, 0, z );
+		// 	 /* Top vertex*/
+		// 	 glTexCoord2f(u, 0.0); glVertex3d( x, y, z );
+		// }
+		// glEnd();
 
-   glDisable(GL_TEXTURE_2D);
 			
-	glEnable(GL_LIGHTING);
+	
 	}
+	if(fuel > 0 && z<=-6800)
+		gamefinish = 1;
+	if(fuel <= 0)
+		gameover = 1;
 	score ++ ;
 	renderHUD();
 }

@@ -18,14 +18,17 @@
 # include <GL/glut.h>
 #endif
 
-# include "SDL/SDL.h"
+
+# include "SDL.h"
+# include "SDL/SDL_mixer.h"
+# include "SDL/SDL_image.h"
 
 # include "main.h"
 # include "game.h"
 # include "objLoader.h"
 # include "keyboard.h"
 # include "world.h"
-//XXXX# include "sound.h"
+# include "sound.h"
 # include "menu.h"
 # include "ortho.h"
 # include "hud.h"
@@ -59,19 +62,26 @@ extern float deltaRotate;
 extern bool pauseGame;
 extern int menuNum;
 extern int one, two, four;
-extern int road, sky, mainMenu,gameOver,blank, arrow,level_1, level_2, settings_game,play_game,exit_game, pauseMenu, settingsMenu, world1Snap, world2Snap, powerUp, healthBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
+extern int road, sky,sand, mainMenu,gameOver,blank,footpath,finishline;
+extern int arrow,level_1, level_2, settings_game,play_game,exit_game;
+extern int pauseMenu, settingsMenu, world1Snap, world2Snap, powerUp;
+extern int greenBar,redBar,blankBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
 extern int worldNum, inGame;
-extern int gameover;
+extern int gameover,gamefinish;
 extern int gunOn;
+extern float fuel;
 extern int number_texture[10];
+
+extern float deltaTiltPlane, overallTilt;
+
 
 extern int score;
 
 extern std::vector < COORDINATE > cars_position;
 extern std::vector < struct parachute > parachute_position;
 
-extern objloader plane, tree, parachute,tractor,rock,building;
+extern objloader plane,tree,parachute,tractor,car,rock,building,railing;
 
-extern int PLANE, TREE, PARACHUTE, TRACTOR,ROCK,BUILDING,SOLDIER;
+extern int PLANE, TREE, PARACHUTE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER,RAILING;
 
 #endif
