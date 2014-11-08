@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 #include <time.h>
-# include <math.h>
+# include <cmath>
 # include <string.h>
 #include  <vector>
 #include <utility>
@@ -70,12 +70,13 @@ extern int pauseMenu, settingsMenu, world1Snap, world2Snap, powerUp;
 extern int greenBar,redBar,blankBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
 extern int worldNum, inGame;
 extern int gameover,gamefinish;
-extern int gunOn;
+extern int gunOn, collision;
 extern float fuel;
 extern int number_texture[10];
 
 extern float deltaTiltPlane, overallTilt;
 
+extern int moveBodyParts[4][3];
 
 extern int score;
 
@@ -83,7 +84,8 @@ extern std::vector < COORDINATE > cars_position;
 extern std::vector < struct parachute > parachute_position;
 
 extern objloader plane,tree,parachute,tractor,car,rock,building,railing;
+extern objloader lower,upper, middleBody, tyre;
 
 extern int PLANE, TREE, PARACHUTE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER,RAILING;
-
+extern int MIDDLEBODY,LOWER,UPPER, TYRE;
 #endif

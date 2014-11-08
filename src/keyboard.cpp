@@ -19,6 +19,8 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
   if(key==27 && gameover == 1)
   {
     fuel = 100;
+    collision = 0;
+    memset(moveBodyParts,0,sizeof(moveBodyParts));
     deltaTiltPlane = 0;
      inGame = 0; menuNum = 1;
      gameover = 0;

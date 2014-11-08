@@ -10,8 +10,21 @@ void initializeWorld(){
     RAILING = railing.load(filename);
 
 	if(worldNum == 1){
+
 		strcpy(filename , "../data/objects/barrel/barrel.obj");
     	PLANE = plane.load(filename);	
+
+		strcpy(filename , "../data/objects/plane/plane.obj");
+    	PLANE = plane.load(filename);
+    	strcpy(filename , "../data/objects/planeParts/upper.obj");
+    	UPPER = upper.load(filename);
+    	strcpy(filename , "../data/objects/planeParts/lower.obj");
+    	LOWER = lower.load(filename);
+    	strcpy(filename , "../data/objects/planeParts/tyre.obj");
+    	TYRE = tyre.load(filename);
+    	strcpy(filename , "../data/objects/planeParts/middleBody.obj");
+    	MIDDLEBODY = middleBody.load(filename);	
+
 	}
 
 	cars_position.clear();	
@@ -54,15 +67,14 @@ float get_angle(int x) {
 
 void moveCars() {
 	for(int i=0; i<cars_position.size(); i++) {
-		if(pow(pow((get_x_coordinate(cars_position[i].first) - x),2) + 
-			pow(cars_position[i].second - z,2),0.5) < 50)
-			gameover = 1;
-
+		
+		if( ( abs(x -get_x_coordinate(cars_position[i].first)) < 200.0 )  && (y < 100.0) && abs((z - cars_position[i].second) < 150.0 ) )
+			collision = 1;
 		if(cars_position[i].second > z || cars_position[i].second < z - 5000) {
 			cars_position.erase(cars_position.begin()+i);
 			continue;
 		}
-		if(cars_position[i].first == 0 || cars_position[i].first == 1) 
+		if(cars_position[i].first == 0 || cars_position[i].first == 2) 
 			cars_position[i].second += 15.0;
 		else
 			cars_position[i].second  -= 15.0;
@@ -91,10 +103,6 @@ void moveParachute() {
 
 	for(int i=0; i<parachute_position.size(); i++) {
 
-		if(pow(pow(parachute_position[i].x_coordinate - x,2) + 
-			pow(parachute_position[i].z_coordinate - z,2) + pow(parachute_position[i].y_coordinate - y,2) ,0.5) < 100)
-			gameover = 1;
-
 		if(parachute_position[i].z_coordinate > z) {
 			parachute_position.erase(parachute_position.begin() + i);
 			continue;
@@ -107,6 +115,24 @@ void moveParachute() {
 
 
 	}
+}
+
+void checkCollision() {
+	if(collision !=0)
+		return;
+	if(x < -900) {
+		collision = 1;
+		return;
+	}
+	for(int i=0; i>=-5000; i -= 800 ) {
+		if( ( abs(x - (-700)) < 200.0 )  && (y < 100.0) && abs((z - i) < 150.0 ) )
+			collision = 1;
+		if( ( abs(x - (700)) < 200.0 )  && (y < 100.0) && abs((z - i) < 150.0 ) )
+			collision = 1;
+	}
+
+	if(( abs(x - (700)) < 200.0 )  && (y < 100.0))
+		collision = 1;
 }
 
 void destroyParachute() {
@@ -173,38 +199,130 @@ void addNewParachute() {
 void drawWorld(){
 	srand (time(NULL));
 
+	checkCollision();
 	moveCars();
 	addNewCars();
 	moveParachute();
-	addNewParachute();																																																																																																						
+	addNewParachute();	
+																																																																																																					
 
 	if(worldNum == 1){
-		// level 1 implementation
-		// glPushMatrix();								// CHARACTERS
-		// 	glTranslatef(x,y,z);
-		// 	glRotatef(90, 0.0, 1.0, 0.0);
-		// 	glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
-		// 	glScalef(40,47,40);
-		// 	glCallList(PLANE);
-		// glPopMatrix();
+		
+		if(collision == 0) {
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(x,y,z);
+				glRotatef(90, 0.0, 1.0, 0.0);
+				
+				overallTilt += deltaTiltPlane;
+				if(overallTilt < 0)
+					overallTilt += 1.0;
+				else if(overallTilt > 0)
+					overallTilt -= 1.0;
 
-		glPushMatrix();								// CHARACTERS
-			glTranslatef(x,y,z);
-			glRotatef(90, 0.0, 1.0, 0.0);
-			
-			overallTilt += deltaTiltPlane;
-			if(overallTilt < 0)
-				overallTilt += 1.0;
-			else if(overallTilt > 0)
-				overallTilt -= 1.0;
+				glRotatef(overallTilt,1.0,0.0,0.0);
 
-			glRotatef(overallTilt,1.0,0.0,0.0);
+				glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(PLANE);
+			glPopMatrix();
+			for(int i=0; i<4; i++)
+			{
+				moveBodyParts[i][0] = x;
+				moveBodyParts[i][1] = y;
+				moveBodyParts[i][2] = z;		
+			}
+		}
+		else {
+			collision++;
+			moveBodyParts[2][1] -= 8.0;
+			if(moveBodyParts[2][1] <0)
+				moveBodyParts[2][1] = 0;
+			moveBodyParts[2][2] -= 6.0;
 
-			cout << "my coordinates " << x << ", " <<  y << ", " << z  << endl;
-			glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
-			glScalef(40,47,40);
-			glCallList(PLANE);
-		glPopMatrix();
+			moveBodyParts[0][1] += 4.0;
+			moveBodyParts[1][1] -= 4.0;
+
+
+			moveBodyParts[3][1] -= 4.0;
+			moveBodyParts[3][2] -= 4.0;
+
+			for(int i=0; i<4; i++) {
+				if(i==2)
+					continue;
+				if(moveBodyParts[i][1] < 0)
+					moveBodyParts[i][1] = 0;
+			}
+
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(moveBodyParts[0][0],moveBodyParts[0][1],moveBodyParts[0][2]);
+				glRotatef(90, 0.0, 1.0, 0.0);
+				
+				overallTilt += deltaTiltPlane;
+				if(overallTilt < 0)
+					overallTilt += 1.0;
+				else if(overallTilt > 0)
+					overallTilt -= 1.0;
+
+				glRotatef(overallTilt,1.0,0.0,0.0);
+
+				glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(UPPER);
+			glPopMatrix();
+
+
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(moveBodyParts[1][0],moveBodyParts[1][1],moveBodyParts[1][2]);
+				glRotatef(90, 0.0, 1.0, 0.0);
+				
+				overallTilt += deltaTiltPlane;
+				if(overallTilt < 0)
+					overallTilt += 1.0;
+				else if(overallTilt > 0)
+					overallTilt -= 1.0;
+
+				glRotatef(overallTilt,1.0,0.0,0.0);
+
+				glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(LOWER);
+			glPopMatrix();
+
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(moveBodyParts[2][0],moveBodyParts[2][1],moveBodyParts[2][2]);
+				glRotatef(90, 0.0, 1.0, 0.0);
+				
+				overallTilt += deltaTiltPlane;
+				if(overallTilt < 0)
+					overallTilt += 1.0;
+				else if(overallTilt > 0)
+					overallTilt -= 1.0;
+
+				glRotatef(overallTilt,1.0,0.0,0.0);
+
+				glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(MIDDLEBODY);
+			glPopMatrix();
+
+
+			glPushMatrix();								// CHARACTERS
+				glTranslatef(moveBodyParts[3][0],moveBodyParts[3][1],moveBodyParts[3][2]);
+				glRotatef(90, 0.0, 1.0, 0.0);
+				
+				overallTilt += deltaTiltPlane;
+				if(overallTilt < 0)
+					overallTilt += 1.0;
+				else if(overallTilt > 0)
+					overallTilt -= 1.0;
+
+				glRotatef(overallTilt,1.0,0.0,0.0);
+
+				glRotatef(rotatePlane+deltaRotate, 0.0, 1.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(TYRE);
+			glPopMatrix();
+		}
 
 		glPushMatrix();								// CHARACTERS
 				glTranslatef(100.0f,0.0f,-7000);
@@ -335,7 +453,11 @@ void drawWorld(){
 	}
 	if(fuel > 0 && z<=-6800)
 		gamefinish = 1;
-	if(fuel <= 0)
+
+	if(fuel <= 0 ) {
+		gameover = 1;	
+	}
+	if(collision >= 15)
 		gameover = 1;
 	score ++ ;
 	renderHUD();
