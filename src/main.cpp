@@ -20,6 +20,7 @@ int gameover = 0;
 int gamefinish = 0;
 int number_texture[10];
 int gunOn = 0;
+int collision = 0;
 int score;
 float fuel = 100;
 
@@ -27,14 +28,19 @@ objloader plane,tree,tractor,car,rock,building,parachute,railing;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
+objloader lower,upper, middleBody, tyre;
 
 vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
 
 int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
+int MIDDLEBODY,LOWER,UPPER, TYRE;
 int SHED,WALL,BASE,FLOOR;
 int WORLD2;
+
+int moveBodyParts[4][3];
+
 float deltaTiltPlane = 0, overallTilt = 0;
 int flag = 0;
 
@@ -86,7 +92,7 @@ int main(int argc, char **argv) {
 	deltaMove = 0;
 	deltaY = 0;
 	score = 0;
-
+	memset(moveBodyParts,0,sizeof(moveBodyParts));
   
   inGame = 0; menuNum = 1;
 

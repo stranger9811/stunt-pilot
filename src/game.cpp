@@ -6,9 +6,11 @@ void computePos(float deltaMove) {
   }else{
     rotatePlane -= deltaRotate;
   }
-  x += deltaMove * sin(rotatePlane*pi/180);
-  z += deltaMove * cos(rotatePlane*pi/180);
-  y += deltaY;
+  if(collision != 1) {
+    x += deltaMove * sin(rotatePlane*pi/180);
+    z += deltaMove * cos(rotatePlane*pi/180);
+    y += deltaY;
+  }
   if(y<0)
     y = 0.0f;
   rx += deltaMove * sin(rotatePlane*pi/180);
