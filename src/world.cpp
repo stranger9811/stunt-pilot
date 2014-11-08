@@ -10,7 +10,7 @@ void initializeWorld(){
     RAILING = railing.load(filename);
 
 	if(worldNum == 1){
-		strcpy(filename , "../data/objects/plane/fluzeug.obj");
+		strcpy(filename , "../data/objects/barrel/barrel.obj");
     	PLANE = plane.load(filename);	
 	}
 
