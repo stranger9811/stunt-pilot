@@ -10,6 +10,7 @@ void initializeWorld(){
     RAILING = railing.load(filename);
 
 	if(worldNum == 1){
+
 		strcpy(filename , "../data/objects/plane/plane.obj");
     	PLANE = plane.load(filename);
     	strcpy(filename , "../data/objects/planeParts/upper.obj");
@@ -20,6 +21,9 @@ void initializeWorld(){
     	TYRE = tyre.load(filename);
     	strcpy(filename , "../data/objects/planeParts/middleBody.obj");
     	MIDDLEBODY = middleBody.load(filename);	
+    	strcpy(filename , "../data/objects/planeParts/tyre.obj");
+    	BULLET = bullet.load(filename);
+
 	}
 
 	cars_position.clear();	
@@ -126,45 +130,46 @@ void checkCollision() {
 			collision = 1;
 	}
 
-	if(( abs(x - (700)) < 200.0 )  && (y < 100.0))
+	if(( abs(x - (500)) < 200.0 )  && (y < 100.0))
 		collision = 1;
 }
 
 void destroyParachute() {
-	vector <int> parachuteToBeDestroyed;
-	int normdiff,normdiffla,sp,xdiff,ydiff,zdiff,xdiffla,ydiffla,zdiffla; 
-	float angle;
-	for(int i=0; i<parachute_position.size(); i++) {
-		xdiff = parachute_position[i].x_coordinate - x;
-		ydiff = parachute_position[i].y_coordinate - y;
-		zdiff = parachute_position[i].z_coordinate - z;
-		xdiffla = x + (float)sin(rotatePlane*pi/180)*10.0;
-		ydiffla = y+100.0f;
-		zdiffla = z + (float)cos(rotatePlane*pi/180)*10.0;
-		sp = (xdiff*xdiffla) + (ydiff*ydiffla) + (zdiff*zdiffla);
-		normdiff = pow(xdiff*xdiff + ydiff*ydiff + zdiff*zdiff, 0.5);
-		normdiffla = pow(xdiffla*xdiffla + ydiffla*ydiffla + zdiffla*zdiffla, 0.5);
-		sp = sp/(normdiff*normdiffla);
-		angle = acos (sp) * 180.0 / PI;
-		if(angle<60)
-		{
-			parachuteToBeDestroyed.push_back(i);
-		}
-	}
-	int min_val=1000000;
-	int index;
-	for (int i=0;i<parachuteToBeDestroyed.size();i++)
-	{
-	
-		if(parachute_position[i].z_coordinate < min_val)
-		{
-			index = i;
-			min_val = parachute_position[i].z_coordinate;
-		}	
-	}
 
-	if(parachuteToBeDestroyed.size()!=0)
-		parachute_position.erase(parachute_position.begin()+index);
+	// vector <int> parachuteToBeDestroyed;
+	// int normdiff,normdiffla,sp,xdiff,ydiff,zdiff,xdiffla,ydiffla,zdiffla; 
+	// float angle;
+	// for(int i=0; i<parachute_position.size(); i++) {
+	// 	xdiff = parachute_position[i].x_coordinate - x;
+	// 	ydiff = parachute_position[i].y_coordinate - y;
+	// 	zdiff = parachute_position[i].z_coordinate - z;
+	// 	xdiffla = x + (float)sin(rotatePlane*pi/180)*10.0;
+	// 	ydiffla = y+100.0f;
+	// 	zdiffla = z + (float)cos(rotatePlane*pi/180)*10.0;
+	// 	sp = (xdiff*xdiffla) + (ydiff*ydiffla) + (zdiff*zdiffla);
+	// 	normdiff = pow(xdiff*xdiff + ydiff*ydiff + zdiff*zdiff, 0.5);
+	// 	normdiffla = pow(xdiffla*xdiffla + ydiffla*ydiffla + zdiffla*zdiffla, 0.5);
+	// 	sp = sp/(normdiff*normdiffla);
+	// 	angle = acos (sp) * 180.0 / PI;
+	// 	if(angle<60)
+	// 	{
+	// 		parachuteToBeDestroyed.push_back(i);
+	// 	}
+	// }
+	// int min_val=1000000;
+	// int index;
+	// for (int i=0;i<parachuteToBeDestroyed.size();i++)
+	// {
+	
+	// 	if(parachute_position[i].z_coordinate < min_val)
+	// 	{
+	// 		index = i;
+	// 		min_val = parachute_position[i].z_coordinate;
+	// 	}	
+	// }
+
+	// if(parachuteToBeDestroyed.size()!=0)
+	// 	parachute_position.erase(parachute_position.begin()+index);
 }
 
 void addNewParachute() {
@@ -202,6 +207,26 @@ void drawWorld(){
 																																																																																																					
 
 	if(worldNum == 1){
+		if(gunOn == 1)
+		{
+			glEnable(GL_TEXTURE_2D);
+			for(int i=0; i<gpos.size(); i++) {
+				gpos[i].glife += 1;
+				if(gpos[i].glife>50)
+				{
+					gpos.erase(gpos.begin()+i);
+					continue;
+				}
+
+				glPushMatrix();								// CHARACTERS
+				glTranslatef(gpos[i].px+gpos[i].gx * gpos[i].glife  ,gpos[i].py+gpos[i].gy * gpos[i].glife,gpos[i].pz+gpos[i].gz * gpos[i].glife);
+				glRotatef(270.0, 0.0, 0.0, 0.0);
+				glScalef(40,47,40);
+				glCallList(BULLET);
+				glPopMatrix();
+		
+			}
+		}
 		
 		if(collision == 0) {
 			glPushMatrix();								// CHARACTERS
@@ -228,6 +253,12 @@ void drawWorld(){
 			}
 		}
 		else {
+			if(flagsound==1)
+			{
+				initializecrashSound();
+				flagsound++;
+			}
+
 			collision++;
 			moveBodyParts[2][1] -= 8.0;
 			if(moveBodyParts[2][1] <0)
@@ -408,6 +439,7 @@ void drawWorld(){
 				glPopMatrix();
 
 		}
+
 		
 		// //glEnable(GL_LIGHTING);
 		// 		/* radius */

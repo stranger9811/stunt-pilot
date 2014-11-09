@@ -11,7 +11,7 @@ int worldNum;
 bool pauseGame;
 int inGame = 0;
 int one, two, four;
-int level_1, level_2,road,sand,sky, menuNum,gameOver,mainMenu, pauseMenu;
+int level_1, level_2,road,sand,sky, menuNum,gameOver,gameFinish,mainMenu, pauseMenu;
 int arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap; 
 int world2Snap, powerUp,blank,greenBar,redBar,blankBar, soundOn;
 int soundOff, title, downArrow, powerFire, powerAir, footpath,finishline;
@@ -22,20 +22,23 @@ int number_texture[10];
 int gunOn = 0;
 int collision = 0;
 int score;
+int flagsound = 1;
 float fuel = 100;
+float gunT = 1;
 
 objloader plane,tree,tractor,car,rock,building,parachute,railing;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
-objloader lower,upper, middleBody, tyre;
+objloader lower,upper, middleBody, tyre, bullet;
 
 vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
+vector < struct gun > gpos;
 
 int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
-int MIDDLEBODY,LOWER,UPPER, TYRE;
+int MIDDLEBODY,LOWER,UPPER, TYRE, BULLET;
 int SHED,WALL,BASE,FLOOR;
 int WORLD2;
 
@@ -56,6 +59,7 @@ void renderScene(void){
   	else if(inGame < 4){
     	renderMenu();
   	}
+
   	else{
   		if(flag==0){
 	 		initializeWorld();
@@ -72,8 +76,17 @@ void update(int value) {
 		y = 0.0;
 	fuel -= 0.5;
 	if(gunOn == 1) {
-		destroyParachute();
+		struct gun temp;
+	    temp.gx = (float)sin(rotatePlane*pi/180)*260.0;
+	    temp.gy = 0;
+	    temp.gz = (float)cos(rotatePlane*pi/180)*260.0;
+	    temp.px = x;
+	    temp.py = y;
+	    temp.pz = z;
+	    temp.glife = 0;
+	    gpos.push_back(temp);
 	}
+
 	glutPostRedisplay(); //Tell GLUT that the display has changed
 	
 	//Tell GLUT to call update again in 25 milliseconds
