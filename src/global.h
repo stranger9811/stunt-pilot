@@ -50,6 +50,17 @@ struct parachute {
 	int direction;
 	int life;
 };
+
+struct gun {
+	float gx;
+	float gy;
+	float gz;
+	float px;
+	float py;
+	float pz;
+	int glife;
+};
+
 extern float angle;				// angle of rotation for the camera direction
 extern float lx,lz,rx,rz;				// actual vector representing the camera's direction
 extern float x, z, y, X, Z;		// XZ position of the car and camera
@@ -64,7 +75,7 @@ extern float deltaRotate;
 extern bool pauseGame;
 extern int menuNum;
 extern int one, two, four;
-extern int road, sky,sand, mainMenu,gameOver,blank,footpath,finishline;
+extern int road, sky,sand, mainMenu,gameOver,gameFinish,blank,footpath,finishline;
 extern int arrow,level_1, level_2, settings_game,play_game,exit_game;
 extern int pauseMenu, settingsMenu, world1Snap, world2Snap, powerUp;
 extern int greenBar,redBar,blankBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
@@ -79,9 +90,11 @@ extern float deltaTiltPlane, overallTilt;
 extern int moveBodyParts[4][3];
 
 extern int score;
+extern int flagsound;
 
 extern std::vector < COORDINATE > cars_position;
 extern std::vector < struct parachute > parachute_position;
+extern std::vector < struct gun > gpos;
 
 extern objloader plane,tree,parachute,tractor,car,rock,building,railing;
 extern objloader lower,upper, middleBody, tyre;

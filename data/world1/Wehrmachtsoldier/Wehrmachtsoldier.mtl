@@ -1,0 +1,523 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+# Multi/Sub hip (3) to come 
+#
+newmtl HIP
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl R
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl L
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub hip done 
+#
+newmtl ABDOMEN
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  8.3
+illum 2
+#
+# Multi/Sub chest (3) to come 
+#
+newmtl CHEST
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl NECK
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl ABDOMEN
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub chest done 
+#
+newmtl HEAD
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub rCollar (2) to come 
+#
+newmtl R
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl NECK
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub rCollar done 
+#
+newmtl R
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub lCollar (2) to come 
+#
+newmtl L
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  2.2
+illum 2
+#
+newmtl NECK
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  3.2
+illum 2
+#
+# Multi/Sub lCollar done 
+#
+newmtl L
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  2.4
+illum 2
+#
+# Multi/Sub rShin (2) to come 
+#
+newmtl BOOTS
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.7 0.8 0.8
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl R
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub rShin done 
+#
+newmtl BOOTS
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.7 0.8 0.8
+d  1.0
+Ns  3.6
+illum 2
+#
+# Multi/Sub lShin (2) to come 
+#
+newmtl BOOTS
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.7 0.8 0.8
+d  1.0
+Ns  2.5
+illum 2
+#
+newmtl L
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  2.9
+illum 2
+#
+# Multi/Sub lShin done 
+#
+newmtl NECK
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub K98RIFLE (4) to come 
+#
+newmtl wood
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.3 0.2 0.2
+d  1.0
+Ns  4.2
+illum 2
+#
+newmtl metal
+Ka  0.6 0.6 0.7
+Kd  0.6 0.6 0.7
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  8.8
+illum 2
+#
+newmtl LTHR
+Ka  0.1 0.1 0.0
+Kd  0.1 0.1 0.0
+Ks  0.2 0.1 0.1
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl BMTL
+Ka  0.3 0.3 0.3
+Kd  0.3 0.3 0.3
+Ks  1.0 1.0 0.8
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub K98RIFLE done 
+#
+# Multi/Sub ammopouch (6) to come 
+#
+newmtl 1
+Ka  0.5 0.4 0.2
+Kd  0.5 0.4 0.2
+Ks  0.5 0.5 0.4
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl AMPCH
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  5.8
+illum 2
+#
+newmtl 1_ammopouch_2
+Ka  0.5 0.4 0.2
+Kd  0.5 0.4 0.2
+Ks  0.5 0.5 0.4
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl AMPCH_ammopouch_2
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  3.4
+illum 2
+#
+newmtl 1_ammopouch_1
+Ka  0.5 0.4 0.2
+Kd  0.5 0.4 0.2
+Ks  0.4 0.4 0.4
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl AMPCH_ammopouch_1
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  4.3
+illum 2
+#
+# Multi/Sub ammopouch done 
+#
+# Multi/Sub BACKPACKGR (9) to come 
+#
+newmtl CKST
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.7 0.8 0.8
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl CCHKD1
+Ka  0.1 0.1 0.1
+Kd  0.1 0.1 0.1
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl CCHKD12
+Ka  0.2 0.2 0.2
+Kd  0.2 0.2 0.2
+Ks  0.8 0.8 0.8
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl BRDBG
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl RSDS
+Ka  0.7 0.7 0.7
+Kd  0.7 0.7 0.7
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl RO
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl RBL
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl BF
+Ka  0.3 0.2 0.2
+Kd  0.3 0.2 0.2
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl FG
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  0.8 0.8 0.7
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub BACKPACKGR done 
+#
+# Multi/Sub CNT (2) to come 
+#
+newmtl C
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl M
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.4 0.4 0.4
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub CNT done 
+#
+# Multi/Sub SHG (4) to come 
+#
+newmtl METAL
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.8 0.8 0.7
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl 5UU
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl RING
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl WOOD
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.8 0.8 0.7
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub SHG done 
+#
+newmtl TRSHW
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.5 0.4 0.2
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl GASCAN
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub BAYO (2) to come 
+#
+newmtl M_BAYO_SHEATH
+Ka  0.9 0.9 0.9
+Kd  0.9 0.9 0.9
+Ks  0.4 0.5 0.5
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl Preview
+Ka  0.8 0.8 0.8
+Kd  0.8 0.8 0.8
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub BAYO done 
+#
+# Multi/Sub BAYONET (4) to come 
+#
+newmtl B
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl W
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.2 0.2 0.2
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl BMH
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.3 0.3 0.3
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl K
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub BAYONET done 
+#
+# Multi/Sub M40 (4) to come 
+#
+newmtl HOUT
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.8 0.8 0.7
+d  1.0
+Ns  5.3
+illum 2
+#
+newmtl INLAY
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  4.2
+illum 2
+#
+newmtl HBLTH
+Ka  0.1 0.1 0.1
+Kd  0.1 0.1 0.1
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  0.0
+illum 2
+#
+newmtl HBMET
+Ka  0.5 0.5 0.5
+Kd  0.5 0.5 0.5
+Ks  1.0 1.0 0.9
+d  1.0
+Ns  0.0
+illum 2
+#
+# Multi/Sub M40 done 
+#
+newmtl COVH
+Ka  1.0 1.0 1.0
+Kd  1.0 1.0 1.0
+Ks  0.0 0.0 0.0
+d  1.0
+Ns  3.9
+illum 2
+#
+# EOF

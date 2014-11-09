@@ -11,7 +11,7 @@ int worldNum;
 bool pauseGame;
 int inGame = 0;
 int one, two, four;
-int level_1, level_2,road,sand,sky, menuNum,gameOver,mainMenu, pauseMenu;
+int level_1, level_2,road,sand,sky, menuNum,gameOver,gameFinish,mainMenu, pauseMenu;
 int arrow, settings_game,play_game,exit_game, settingsMenu, world1Snap; 
 int world2Snap, powerUp,blank,greenBar,redBar,blankBar, soundOn;
 int soundOff, title, downArrow, powerFire, powerAir, footpath,finishline;
@@ -22,7 +22,9 @@ int number_texture[10];
 int gunOn = 0;
 int collision = 0;
 int score;
+int flagsound = 1;
 float fuel = 100;
+float gunT = 1;
 
 objloader plane,tree,tractor,car,rock,building,parachute,railing;
 objloader sideleft,sideright,sideback,sidefront;
@@ -32,6 +34,7 @@ objloader lower,upper, middleBody, tyre;
 
 vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
+vector < struct gun > gpos;
 
 int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
@@ -56,6 +59,7 @@ void renderScene(void){
   	else if(inGame < 4){
     	renderMenu();
   	}
+
   	else{
   		if(flag==0){
 	 		initializeWorld();
@@ -71,9 +75,7 @@ void update(int value) {
 	if(y<0)
 		y = 0.0;
 	fuel -= 0.5;
-	if(gunOn == 1) {
-		destroyParachute();
-	}
+
 	glutPostRedisplay(); //Tell GLUT that the display has changed
 	
 	//Tell GLUT to call update again in 25 milliseconds

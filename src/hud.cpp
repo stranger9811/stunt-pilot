@@ -152,31 +152,58 @@ void renderHUD()
     // glEnd();
     glBindTexture(GL_TEXTURE_2D, blankBar);
       glBegin(GL_QUADS);
-        glTexCoord2f(0,0);  glVertex2f(10,300);
-        glTexCoord2f(1,0);  glVertex2f(30,300);
-        glTexCoord2f(1,1);  glVertex2f(30,435);
-        glTexCoord2f(0,1);  glVertex2f(10,435);
+        glTexCoord2f(0,0);  glVertex2f(20,30);
+        glTexCoord2f(1,0);  glVertex2f(170,30);
+        glTexCoord2f(1,1);  glVertex2f(170,10);
+        glTexCoord2f(0,1);  glVertex2f(20,10);
       glEnd();
     if(fuel > 50)
     {
       glBindTexture(GL_TEXTURE_2D, greenBar);
       glBegin(GL_QUADS);
-        glTexCoord2f(0,0);  glVertex2f(10,300 + (100 - fuel)*1.35 );
-        glTexCoord2f(1,0);  glVertex2f(30,300 + (100 - fuel)*1.35 );
-        glTexCoord2f(1,1);  glVertex2f(30,435);
-        glTexCoord2f(0,1);  glVertex2f(10,435);
+        glTexCoord2f(0,0);  glVertex2f(20, 30 );
+        glTexCoord2f(1,0);  glVertex2f(170- (100 - fuel)*1.5,30  );
+        glTexCoord2f(1,1);  glVertex2f(170- (100 - fuel)*1.5,10);
+        glTexCoord2f(0,1);  glVertex2f(20,10);
       glEnd();
     }
     else if(fuel<=50)
     {
       glBindTexture(GL_TEXTURE_2D, redBar);
       glBegin(GL_QUADS);
-        glTexCoord2f(0,0);  glVertex2f(10,300 + (100 - fuel)*1.35 );
-        glTexCoord2f(1,0);  glVertex2f(30,300 + (100 - fuel)*1.35 );
-        glTexCoord2f(1,1);  glVertex2f(30,435);
-        glTexCoord2f(0,1);  glVertex2f(10,435);
+        glTexCoord2f(0,0);  glVertex2f(20, 30);
+        glTexCoord2f(1,0);  glVertex2f(170 - (100 - fuel)*1.5, 30);
+        glTexCoord2f(1,1);  glVertex2f(170 - (100 - fuel)*1.5, 10);
+        glTexCoord2f(0,1);  glVertex2f(20,10);
       glEnd(); 
     }
+    // glBindTexture(GL_TEXTURE_2D, blankBar);
+    //   glBegin(GL_QUADS);
+    //     glTexCoord2f(0,0);  glVertex2f(10,300);
+    //     glTexCoord2f(1,0);  glVertex2f(30,300);
+    //     glTexCoord2f(1,1);  glVertex2f(30,435);
+    //     glTexCoord2f(0,1);  glVertex2f(10,435);
+    //   glEnd();
+    // if(fuel > 50)
+    // {
+    //   glBindTexture(GL_TEXTURE_2D, greenBar);
+    //   glBegin(GL_QUADS);
+    //     glTexCoord2f(0,0);  glVertex2f(10,300 + (100 - fuel)*1.35 );
+    //     glTexCoord2f(1,0);  glVertex2f(30,300 + (100 - fuel)*1.35 );
+    //     glTexCoord2f(1,1);  glVertex2f(30,435);
+    //     glTexCoord2f(0,1);  glVertex2f(10,435);
+    //   glEnd();
+    // }
+    // else if(fuel<=50)
+    // {
+    //   glBindTexture(GL_TEXTURE_2D, redBar);
+    //   glBegin(GL_QUADS);
+    //     glTexCoord2f(0,0);  glVertex2f(10,300 + (100 - fuel)*1.35 );
+    //     glTexCoord2f(1,0);  glVertex2f(30,300 + (100 - fuel)*1.35 );
+    //     glTexCoord2f(1,1);  glVertex2f(30,435);
+    //     glTexCoord2f(0,1);  glVertex2f(10,435);
+    //   glEnd(); 
+    // }
     
 glDisable(GL_TEXTURE_2D);
   orthoReset();

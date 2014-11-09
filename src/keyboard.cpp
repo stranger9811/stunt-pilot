@@ -16,14 +16,18 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
     else 
       inGame = 1;
   }
-  if(key==27 && gameover == 1)
+
+  if((key==27 && gameover == 1) || (key==27 && gamefinish==1)) 
   {
+    initializeSound();
+    flagsound = 1;
     fuel = 100;
     collision = 0;
     memset(moveBodyParts,0,sizeof(moveBodyParts));
     deltaTiltPlane = 0;
      inGame = 0; menuNum = 1;
      gameover = 0;
+     gamefinish = 0;
      overallTilt = 0;
      angle = 0.0f;                // angle of rotation for the camera direction
       lx = 0.0f; lz = 0.0f;           // actual vector representing the camera's direction
@@ -48,6 +52,15 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
   if(key == 'g'){
     //close();
     gunOn = 1;
+    struct gun temp;
+    temp.gx = (float)sin(rotatePlane*pi/180)*260.0;
+    temp.gy = 0;
+    temp.gz = (float)cos(rotatePlane*pi/180)*260.0;
+    temp.px = x;
+    temp.py = y;
+    temp.pz = z;
+    temp.glife = 0;
+    gpos.push_back(temp);
     initializegunSound();
   }
   if(key=='k'){

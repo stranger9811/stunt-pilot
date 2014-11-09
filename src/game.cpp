@@ -59,7 +59,7 @@ void renderGameFinish(void)
   orthoSet();
  glEnable(GL_TEXTURE_2D);
  
-  glBindTexture(GL_TEXTURE_2D, gameOver);
+  glBindTexture(GL_TEXTURE_2D, gameFinish);
   glBegin(GL_QUADS);
       glTexCoord2f(0, 0);  glVertex2f(0, 0);
       glTexCoord2f(0, 1);  glVertex2f(0, 450);
@@ -129,6 +129,7 @@ void initialize (void){
     road = loadTex("../data/images/runway.bmp");
     sky = loadTex("../data/images/Sky.bmp");
     gameOver = loadTex("../data/images/gameover.bmp");
+    gameFinish = loadTex("../data/images/gamefinish.bmp");
     sand = loadTex("../data/images/sandy.bmp");
     footpath = loadTex("../data/images/footpath.bmp");
     finishline = loadTex("../data/images/finishline.bmp");

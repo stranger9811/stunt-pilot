@@ -2,6 +2,7 @@
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gunMusic = NULL;
+Mix_Music *explosionMusic = NULL;
 
 bool init(){
   //Initialization flag
@@ -55,8 +56,19 @@ void initializeSound(){
 bool loadGunMedia(){
   //Loading success flag
   bool success = true;
-  gunMusic = Mix_LoadMUS( "../data/sound/gunsound1.wav" );
+  gunMusic = Mix_LoadMUS( "../data/sound/gunsound.wav" );
   if( gunMusic == NULL ){
+    printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+    success = false;
+  }
+  return success;
+}
+
+bool loadCrashMedia(){
+  //Loading success flag
+  bool success = true;
+  explosionMusic = Mix_LoadMUS( "../data/sound/explosion.wav" );
+  if( explosionMusic == NULL ){
     printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
     success = false;
   }
@@ -70,6 +82,14 @@ void closegunSound(){
   SDL_Quit();
 }
 
+
+void closeexplosionSound(){
+  Mix_FreeMusic( explosionMusic );
+  explosionMusic = NULL;
+  Mix_Quit();
+  SDL_Quit();  
+}
+
 void initializegunSound(){
   if( !init() ){
     printf( "Failed to initialize!\n" );
@@ -80,6 +100,20 @@ void initializegunSound(){
     }
     else{ 
       Mix_PlayMusic( gunMusic, -1 );
+    }
+  }
+}
+
+void initializecrashSound(){
+  if( !init() ){
+    printf( "Failed to initialize!\n" );
+  }
+  else{
+    if( !loadCrashMedia() ){
+      printf( "Failed to load media!\n" );
+    }
+    else{ 
+      Mix_PlayMusic( explosionMusic, -1 );
     }
   }
 }

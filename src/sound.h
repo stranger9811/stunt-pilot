@@ -6,4 +6,5 @@ void close();
 void closegunSound();
 void initializeSound();
 void initializegunSound();
+void initializecrashSound();
 
