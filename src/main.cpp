@@ -1,4 +1,6 @@
 #include "global.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 float angle;			
 float lx,lz, rx, rz;			
@@ -21,16 +23,18 @@ int gamefinish = 0;
 int number_texture[10];
 int gunOn = 0;
 int collision = 0;
-int score;
+int score = 0;
 int flagsound = 1;
+int flagfile = 1;
 float fuel = 100;
 float gunT = 1;
+int hscore;
 
 objloader plane,tree,tractor,car,rock,building,parachute,railing;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
-objloader lower,upper, middleBody, tyre, bullet;
+objloader lower,upper, middleBody, tyre, bullet,barrel;
 
 vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
@@ -38,7 +42,7 @@ vector < struct gun > gpos;
 
 int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
-int MIDDLEBODY,LOWER,UPPER, TYRE, BULLET;
+int MIDDLEBODY,LOWER,UPPER, TYRE, BULLET,BARREL;
 int SHED,WALL,BASE,FLOOR;
 int WORLD2;
 
@@ -107,7 +111,11 @@ int main(int argc, char **argv) {
 	score = 0;
 	memset(moveBodyParts,0,sizeof(moveBodyParts));
   
-  inGame = 0; menuNum = 1;
+  	inGame = 0; menuNum = 1;
+  	FILE *fp;
+  	fp = fopen("highscore.txt","r");
+  	fscanf(fp,"%d",&hscore);
+  	fclose(fp);
 
 	// init GLUT and create window
 	glutInit(&argc, argv);

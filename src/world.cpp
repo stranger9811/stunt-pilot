@@ -23,7 +23,8 @@ void initializeWorld(){
     	MIDDLEBODY = middleBody.load(filename);	
     	strcpy(filename , "../data/objects/planeParts/tyre.obj");
     	BULLET = bullet.load(filename);
-
+    	strcpy(filename , "../data/objects/barrel/barrel.obj");
+    	BARREL = barrel.load(filename);
 	}
 
 	cars_position.clear();	
@@ -40,7 +41,6 @@ void initializeWorld(){
     strcpy(filename,"../data/objects/parachute/parachute.obj");
     PARACHUTE = parachute.load(filename);
     
-	
 }
 
 float get_x_coordinate(int x) {
@@ -110,9 +110,6 @@ void moveParachute() {
 		parachute_position[i].y_coordinate -= 30.0f;
 		if(parachute_position[i].y_coordinate <= 100)
 			parachute_position.erase(parachute_position.begin() + i);
-		
-
-
 	}
 }
 
@@ -134,42 +131,20 @@ void checkCollision() {
 		collision = 1;
 }
 
-void destroyParachute() {
+void destroyParachute(float x,float y,float z) {
 
-	// vector <int> parachuteToBeDestroyed;
-	// int normdiff,normdiffla,sp,xdiff,ydiff,zdiff,xdiffla,ydiffla,zdiffla; 
-	// float angle;
-	// for(int i=0; i<parachute_position.size(); i++) {
-	// 	xdiff = parachute_position[i].x_coordinate - x;
-	// 	ydiff = parachute_position[i].y_coordinate - y;
-	// 	zdiff = parachute_position[i].z_coordinate - z;
-	// 	xdiffla = x + (float)sin(rotatePlane*pi/180)*10.0;
-	// 	ydiffla = y+100.0f;
-	// 	zdiffla = z + (float)cos(rotatePlane*pi/180)*10.0;
-	// 	sp = (xdiff*xdiffla) + (ydiff*ydiffla) + (zdiff*zdiffla);
-	// 	normdiff = pow(xdiff*xdiff + ydiff*ydiff + zdiff*zdiff, 0.5);
-	// 	normdiffla = pow(xdiffla*xdiffla + ydiffla*ydiffla + zdiffla*zdiffla, 0.5);
-	// 	sp = sp/(normdiff*normdiffla);
-	// 	angle = acos (sp) * 180.0 / PI;
-	// 	if(angle<60)
-	// 	{
-	// 		parachuteToBeDestroyed.push_back(i);
-	// 	}
-	// }
-	// int min_val=1000000;
-	// int index;
-	// for (int i=0;i<parachuteToBeDestroyed.size();i++)
-	// {
-	
-	// 	if(parachute_position[i].z_coordinate < min_val)
-	// 	{
-	// 		index = i;
-	// 		min_val = parachute_position[i].z_coordinate;
-	// 	}	
-	// }
-
-	// if(parachuteToBeDestroyed.size()!=0)
-	// 	parachute_position.erase(parachute_position.begin()+index);
+	for (int i=0;i<parachute_position.size();i++)
+	{
+		if( ( abs(x -parachute_position[i].x_coordinate) < 200.0 )  && (abs(y - parachute_position[i].y_coordinate) < 200.0) && (z - parachute_position[i].z_coordinate < 200.0 ) )
+		{
+			if(parachute_position[i].isbarrel && fuel <=80)
+				fuel += 20;
+			else if(parachute_position[i].isbarrel && fuel >80)
+				fuel = 100;
+			parachute_position.erase(parachute_position.begin()+i);
+			score += 50 ;
+		}
+	}
 }
 
 void addNewParachute() {
@@ -189,8 +164,7 @@ void addNewParachute() {
 			temp.x_coordinate = x_coord;
 			temp.y_coordinate = y_coord;
 			temp.z_coordinate = z_coord;
-			temp.life = PARACHUTE_LIFE;
-			
+			temp.isbarrel = (0==rand()%5);
 			parachute_position.push_back(temp);
 		}
 	}
@@ -224,8 +198,9 @@ void drawWorld(){
 				glScalef(40,47,40);
 				glCallList(BULLET);
 				glPopMatrix();
-		
+				destroyParachute(gpos[i].px+gpos[i].gx * gpos[i].glife  ,gpos[i].py+gpos[i].gy * gpos[i].glife,gpos[i].pz+gpos[i].gz * gpos[i].glife);
 			}
+			
 		}
 		
 		if(collision == 0) {
@@ -438,6 +413,17 @@ void drawWorld(){
 				glCallList(PARACHUTE);
 				glPopMatrix();
 
+				if(parachute_position[i].isbarrel)
+				{
+					glPushMatrix();	
+					glTranslatef(float(parachute_position[i].x_coordinate),
+					float(parachute_position[i].y_coordinate)-250,float(parachute_position[i].z_coordinate));
+					glRotatef(270.0, 0.0, 0.0, 0.0);
+					glScalef(50,50,50);
+					glCallList(BARREL);
+					glPopMatrix();	
+				}
+				
 		}
 
 		
@@ -486,6 +472,5 @@ void drawWorld(){
 	}
 	if(collision >= 15)
 		gameover = 1;
-	score ++ ;
 	renderHUD();
 }

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hud.h"
 
 void computePos(float deltaMove) {
   if(deltaMove>0){
@@ -48,6 +49,22 @@ void renderGameOver(void)
       glTexCoord2f(1, 0);  glVertex2f(800, 0);
   glEnd();
   glDisable(GL_TEXTURE_2D);
+  glEnable(GL_TEXTURE_2D);
+  renderNumber(500,200,score);
+  if(score<hscore)
+    renderNumber(500,300,hscore);
+  else
+  {
+    renderNumber(500,300,score);
+    if(flagfile == 1)
+    {
+      FILE *fp;
+      fp = fopen("highscore.txt","w");
+      fprintf(fp,"%d",score);
+      flagfile += 1;
+    } 
+  }
+  glDisable(GL_TEXTURE_2D);
    orthoReset();
 
 }
@@ -67,7 +84,24 @@ void renderGameFinish(void)
       glTexCoord2f(1, 0);  glVertex2f(800, 0);
   glEnd();
   glDisable(GL_TEXTURE_2D);
-   orthoReset();
+  glEnable(GL_TEXTURE_2D);
+  renderNumber(500,200,score);
+  if(score<hscore)
+    renderNumber(500,300,hscore);
+  else
+  {
+    renderNumber(500,300,score);
+    if(flagfile == 1)
+    {
+      FILE *fp;
+      fp = fopen("highscore.txt","w");
+      fprintf(fp,"%d",score);
+      flagfile += 1;
+    }
+  }
+  
+  glDisable(GL_TEXTURE_2D);
+  orthoReset();
 }
 
 void initialize (void){
@@ -128,8 +162,8 @@ void initialize (void){
     powerAir = loadTex("../data/images/lives.bmp");
     road = loadTex("../data/images/runway.bmp");
     sky = loadTex("../data/images/Sky.bmp");
-    gameOver = loadTex("../data/images/gameover.bmp");
-    gameFinish = loadTex("../data/images/gamefinish.bmp");
+    gameOver = loadTex("../data/images/Gameover.bmp");
+    gameFinish = loadTex("../data/images/Levelcompleted.bmp");
     sand = loadTex("../data/images/sandy.bmp");
     footpath = loadTex("../data/images/footpath.bmp");
     finishline = loadTex("../data/images/finishline.bmp");

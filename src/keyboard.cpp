@@ -21,6 +21,7 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
   {
     initializeSound();
     flagsound = 1;
+    flagfile = 1;
     fuel = 100;
     collision = 0;
     memset(moveBodyParts,0,sizeof(moveBodyParts));
