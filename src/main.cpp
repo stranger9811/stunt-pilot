@@ -19,6 +19,7 @@ int world2Snap, powerUp,blank,greenBar,redBar,blankBar, soundOn;
 int soundOff, title, downArrow, powerFire, powerAir, footpath,finishline;
 
 int gameover = 0;
+int makeitcrash = 0;
 int gamefinish = 0;
 int number_texture[10];
 int gunOn = 0;
@@ -30,7 +31,7 @@ float fuel = 100;
 float gunT = 1;
 int hscore;
 
-objloader plane,tree,tractor,car,rock,building,parachute,railing;
+objloader plane,tree,tractor,car,rock,building,parachute,railing,man;
 objloader sideleft,sideright,sideback,sidefront;
 objloader shed, base, wall, flooor;
 objloader world2;
@@ -40,7 +41,7 @@ vector < COORDINATE > cars_position;
 vector < struct parachute > parachute_position;
 vector < struct gun > gpos;
 
-int PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
+int MAN,PLANE, TREE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER, PARACHUTE,RAILING;
 int SIDELEFT,SIDERIGHT,SIDEBACK,SIDEFRONT;
 int MIDDLEBODY,LOWER,UPPER, TYRE, BULLET,BARREL;
 int SHED,WALL,BASE,FLOOR;
@@ -75,10 +76,11 @@ void renderScene(void){
 }
 
 void update(int value) {
-    y += -3.0;
+    y += -5.0;
 	if(y<0)
 		y = 0.0;
-	fuel -= 0.5;
+	if(fuel > 0)
+		fuel -= 1.0;
 	if(gunOn == 1) {
 		struct gun temp;
 	    temp.gx = (float)sin(rotatePlane*pi/180)*260.0;

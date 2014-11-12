@@ -13,6 +13,8 @@ void initializeWorld(){
 
 		strcpy(filename , "../data/objects/plane/plane.obj");
     	PLANE = plane.load(filename);
+    	// strcpy(filename , "../data/objects/man/man.obj");
+    	// MAN = man.load(filename);
     	strcpy(filename , "../data/objects/planeParts/upper.obj");
     	UPPER = upper.load(filename);
     	strcpy(filename , "../data/objects/planeParts/lower.obj");
@@ -34,8 +36,6 @@ void initializeWorld(){
     ROCK = rock.load(filename);
     strcpy(filename , "../data/objects/building/building.obj");
     BUILDING = building.load(filename);
-    strcpy(filename , "../data/objects/soldier/soldier.obj");
-    SOLDIER = building.load(filename);
     strcpy(filename , "../data/objects/car/car.obj");
     CAR = car.load(filename);
     strcpy(filename,"../data/objects/parachute/parachute.obj");
@@ -68,7 +68,10 @@ void moveCars() {
 	for(int i=0; i<cars_position.size(); i++) {
 		
 		if( ( abs(x -get_x_coordinate(cars_position[i].first)) < 200.0 )  && (y < 100.0) && abs((z - cars_position[i].second) < 150.0 ) )
+		{	
 			collision = 1;
+			deltaMove = 0.0f;
+		}	
 		if(cars_position[i].second > z || cars_position[i].second < z - 5000) {
 			cars_position.erase(cars_position.begin()+i);
 			continue;
@@ -137,9 +140,9 @@ void destroyParachute(float x,float y,float z) {
 	{
 		if( ( abs(x -parachute_position[i].x_coordinate) < 200.0 )  && (abs(y - parachute_position[i].y_coordinate) < 200.0) && (z - parachute_position[i].z_coordinate < 200.0 ) )
 		{
-			if(parachute_position[i].isbarrel && fuel <=80)
-				fuel += 20;
-			else if(parachute_position[i].isbarrel && fuel >80)
+			if(parachute_position[i].isbarrel && fuel<=85)
+				fuel += 15;
+			else if(parachute_position[i].isbarrel && fuel>85)
 				fuel = 100;
 			parachute_position.erase(parachute_position.begin()+i);
 			score += 50 ;
@@ -181,6 +184,19 @@ void drawWorld(){
 																																																																																																					
 
 	if(worldNum == 1){
+		if(makeitcrash == 1)
+		{
+			deltaMove = 50.0f;
+			y += -20;
+			if(y<=0)
+			{
+				collision = 1;
+				makeitcrash = 0;
+				deltaMove = 0.0f;
+			}
+
+		}
+
 		if(gunOn == 1)
 		{
 			glEnable(GL_TEXTURE_2D);
@@ -346,20 +362,22 @@ void drawWorld(){
 
    glDisable(GL_TEXTURE_2D);
 
-		glPushMatrix();								// CHARACTERS
-			glTranslatef(-1500.0f,0.0f,-2000.0f);
-			glRotatef(270.0, 0.0, 0.0, 0.0);
-			glScalef(20,20,20);
-			glCallList(SOLDIER);
-		glPopMatrix();
+		// glPushMatrix();								// CHARACTERS
+		// 	glTranslatef(-500.0f,10.0f,-2000.0f);
+		// 	glRotatef(270.0, 0.0, 0.0, 0.0);
+		// 	glScalef(20,20,20);
+		// 	glCallList(MAN);
+		// glPopMatrix();
 
 
-		glPushMatrix();								// CHARACTERS
-			glTranslatef(-900.0f,0.0f,-2000.0f);
-			glRotatef(250.0, 0.0, 1.0, 0.0);
-			glScalef(20,20,20);
-			glCallList(SOLDIER);
-		glPopMatrix();
+		// glPushMatrix();								// CHARACTERS
+		// 	glTranslatef(-500.0f,10.0f,-1000.0f);
+		// 	glRotatef(250.0, 0.0, 1.0, 0.0);
+		// 	glScalef(20,20,20);
+		// 	glCallList(MAN);
+		// glPopMatrix();
+
+		
 		for(int i=5000; i>=-5000; i-=800) {
 			glPushMatrix();								// CHARACTERS
 				glTranslatef(390.0f,0.0f,float(i));
@@ -417,7 +435,7 @@ void drawWorld(){
 				{
 					glPushMatrix();	
 					glTranslatef(float(parachute_position[i].x_coordinate),
-					float(parachute_position[i].y_coordinate)-250,float(parachute_position[i].z_coordinate));
+					float(parachute_position[i].y_coordinate)-225,float(parachute_position[i].z_coordinate));
 					glRotatef(270.0, 0.0, 0.0, 0.0);
 					glScalef(50,50,50);
 					glCallList(BARREL);
@@ -467,10 +485,13 @@ void drawWorld(){
 	if(fuel > 0 && z<=-6800)
 		gamefinish = 1;
 
-	if(fuel <= 0 ) {
-		gameover = 1;	
+	if(fuel <= 0 && y > 10) {
+		makeitcrash = 1;	
 	}
-	if(collision >= 15)
+	else if(fuel <=0 && collision==0)
+		gameover = 1;
+	
+	if(collision >= 20)
 		gameover = 1;
 	renderHUD();
 }

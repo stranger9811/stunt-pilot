@@ -8,17 +8,30 @@ void renderNumber(int x,int y,int value)
       temp = temp/10;
       len++;
     }
-    while(value!=0) {
-      temp = value%10;
-      glBindTexture(GL_TEXTURE_2D, number_texture[temp]);
-      glBegin(GL_QUADS);
-        glTexCoord2f(0,0);  glVertex2f(x + len*20,y);
-        glTexCoord2f(1,0);  glVertex2f(x + len*20 + 20,y);
-        glTexCoord2f(1,1);  glVertex2f(x + len*20 + 20,y + 40);
-        glTexCoord2f(0,1);  glVertex2f(x + len*20, y+40);
-      glEnd();
-      len--;
-      value = value/10;
+    if(value>0)
+    {
+      while(value!=0) {
+        temp = value%10;
+        glBindTexture(GL_TEXTURE_2D, number_texture[temp]);
+        glBegin(GL_QUADS);
+          glTexCoord2f(0,0);  glVertex2f(x + len*20,y);
+          glTexCoord2f(1,0);  glVertex2f(x + len*20 + 20,y);
+          glTexCoord2f(1,1);  glVertex2f(x + len*20 + 20,y + 40);
+          glTexCoord2f(0,1);  glVertex2f(x + len*20, y+40);
+        glEnd();
+        len--;
+        value = value/10;
+      }
+    }
+    else if(value==0)
+    {
+      glBindTexture(GL_TEXTURE_2D, number_texture[0]);
+        glBegin(GL_QUADS);
+          glTexCoord2f(0,0);  glVertex2f(x + len*20,y);
+          glTexCoord2f(1,0);  glVertex2f(x + len*20 + 20,y);
+          glTexCoord2f(1,1);  glVertex2f(x + len*20 + 20,y + 40);
+          glTexCoord2f(0,1);  glVertex2f(x + len*20, y+40);
+        glEnd();
     }
 }
  

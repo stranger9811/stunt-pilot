@@ -28,6 +28,7 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
     deltaTiltPlane = 0;
      inGame = 0; menuNum = 1;
      gameover = 0;
+     makeitcrash = 0;
      gamefinish = 0;
      overallTilt = 0;
      angle = 0.0f;                // angle of rotation for the camera direction
@@ -93,7 +94,7 @@ void pressKey(int key, int xx, int yy) {
       case GLUT_KEY_LEFT  : if(menuNum==1){menuNum=1;}else{menuNum--;} break;
       case GLUT_KEY_RIGHT : if(menuNum==3){menuNum=3;}else{menuNum++;} break;
     }
-  }else{
+  }else if(makeitcrash==0){
     switch (key) {
       case GLUT_KEY_UP    : deltaMove = 15.0f; break;
       case GLUT_KEY_DOWN  : deltaMove = -15.0f; break;
@@ -112,10 +113,10 @@ void pressKey(int key, int xx, int yy) {
 } 
 
 void releaseKey(int key, int x, int y) {
-  if(inGame){
+  if(inGame && makeitcrash==0 && collision == 0){
     switch (key) {
-      case GLUT_KEY_UP : deltaMove = 0;break;
-      case GLUT_KEY_DOWN :  deltaMove = 0;break ;
+      case GLUT_KEY_UP : deltaMove = 10;break;
+      case GLUT_KEY_DOWN :  deltaMove = -10;break ;
       case GLUT_KEY_LEFT : 
                         {
                           deltaTiltPlane = 0;

@@ -80,7 +80,7 @@ extern int arrow,level_1, level_2, settings_game,play_game,exit_game;
 extern int pauseMenu, settingsMenu, world1Snap, world2Snap, powerUp;
 extern int greenBar,redBar,blankBar, soundOn, soundOff, title, downArrow, powerFire, powerAir;
 extern int worldNum, inGame;
-extern int gameover,gamefinish,hscore;
+extern int gameover,makeitcrash,gamefinish,hscore;
 extern int gunOn, collision;
 extern float fuel;
 extern int number_texture[10];
@@ -96,9 +96,9 @@ extern std::vector < COORDINATE > cars_position;
 extern std::vector < struct parachute > parachute_position;
 extern std::vector < struct gun > gpos;
 
-extern objloader plane,tree,parachute,tractor,car,rock,building,railing;
+extern objloader plane,tree,parachute,tractor,car,rock,building,railing,man;
 extern objloader lower,upper, middleBody, tyre, bullet,barrel;
 
-extern int PLANE, TREE, PARACHUTE, TRACTOR, CAR, ROCK,BUILDING,SOLDIER,RAILING;
+extern int PLANE, TREE, PARACHUTE, TRACTOR, CAR, ROCK,BUILDING,MAN,SOLDIER,RAILING;
 extern int MIDDLEBODY,LOWER,UPPER, TYRE, BULLET,BARREL;
 #endif
